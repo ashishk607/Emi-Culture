@@ -1,0 +1,25 @@
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+/* Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+/* For all browsers */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+}
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
