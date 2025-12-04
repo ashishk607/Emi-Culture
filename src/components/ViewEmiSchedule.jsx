@@ -6,7 +6,7 @@ export default function ViewEmiSchedule({ schedule }) {
           Payment Schedule
         </h3>
 
-        <ul className="space-y-4 max-h-[450px] overflow-y-auto pr-2 custom-scroll">
+        <ul className="space-y-4 pr-2">
           {schedule.map((item, i) => (
             <li
               key={i}
