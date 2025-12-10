@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import familyImage from "../../assets/Rectangle 376714341.png";
-
 import { getGuestEmiDetails } from "../../api/guestApi";
 import { saveGuestEmiPlan } from "../../api/guestApi";
-
 import GuestInfoCard from "../../components/GuestInfoCard";
 import EmiTenureCard from "../../components/EmiTenureCard";
 import EmiSummary from "../../components/EmiSummary";
 import PaymentSchedule from "../../components/PaymentSchedule";
-
 import "./ConvertEmi.css";
 
 import {
@@ -42,6 +39,7 @@ export default function ConvertEmi() {
   const [success, setSuccess] = useState(false);
   const [countdown, setCountdown] = useState(null);
   const [error, setError] = useState("");
+  const [isInvalidCustom, setIsInvalidCustom] = useState(false);
 
   const navigate = useNavigate();
 
@@ -186,7 +184,13 @@ export default function ConvertEmi() {
 
   const handleCustomSubmit = () => {
     const m = Number(customMonths);
-    if (!m) return setError("Enter valid EMI months");
+
+    if (!m || m < 3 || m > maxMonths) {
+      setIsInvalidCustom(true);
+      return;
+    }
+
+    setIsInvalidCustom(false);
     applyEMI(m);
   };
 
@@ -216,7 +220,7 @@ export default function ConvertEmi() {
             <div className="shimmer-light-gray h-4 w-24 mb-2 rounded" />
             <div className="shimmer-gray h-6 w-48 mb-3 rounded" />
             <hr className="my-2 text-[#9C9C9C]" />
-            
+
             <div className="flex items-center gap-6 mb-3">
               <div className="shimmer-gray h-5 w-24 rounded" />
               <div className="w-px h-10 bg-gray-300" />
@@ -224,7 +228,7 @@ export default function ConvertEmi() {
               <div className="w-px h-10 bg-gray-300" />
               <div className="shimmer-gray h-5 w-24 rounded" />
             </div>
-            
+
             <div className="shimmer-gray h-5 w-52 rounded" />
           </div>
 
@@ -237,7 +241,10 @@ export default function ConvertEmi() {
           {/* Tenure Cards Grid Shimmer */}
           <div className="grid grid-cols-4 gap-4 mb-8">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="shimmer-card border border-[#D9D9D9] rounded-xl p-4 h-28" />
+              <div
+                key={i}
+                className="shimmer-card border border-[#D9D9D9] rounded-xl p-4 h-28"
+              />
             ))}
           </div>
 
@@ -264,10 +271,13 @@ export default function ConvertEmi() {
             {/* Payment Schedule */}
             <div className="bg-white rounded-xl border border-[#BEDBFF] p-6">
               <div className="shimmer-gray h-6 w-44 mb-4 rounded" />
-              
+
               <ul className="space-y-3">
                 {[1, 2, 3].map((i) => (
-                  <li key={i} className="flex items-center justify-between py-3 border-[#E1DFDF] border-b last:border-none">
+                  <li
+                    key={i}
+                    className="flex items-center justify-between py-3 border-[#E1DFDF] border-b last:border-none"
+                  >
                     <div className="flex items-center gap-4">
                       <div className="shimmer-blue-circle w-8 h-8 rounded-full" />
                       <div className="shimmer-gray h-5 w-28 rounded" />
@@ -364,18 +374,23 @@ export default function ConvertEmi() {
 
       {/* RIGHT SIDE */}
       <div className="w-2/3 p-10 bg-white">
-        <h1 className="text-3xl font-bold inter-font-family">Convert Guest Payment to EMI</h1>
-        <p className="text-gray-600 mb-8 mt-2 inter-font-family">Help your guest pay in easy monthly installments. While you sit back and relax.</p>
+        <h1 className="text-3xl font-bold inter-font-family">
+          Convert Guest Payment to EMI
+        </h1>
+        <p className="text-gray-600 mb-8 mt-2 inter-font-family">
+          Help your guest pay in easy monthly installments. While you sit back
+          and relax.
+        </p>
 
         <GuestInfoCard guest={guest} />
 
         {/* TENURE + PAYMENT DATE */}
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-base text-[#6F6F6F] font-semibold inter-font-family">Choose EMI Tenure</h3>
+          <h3 className="text-base text-[#6F6F6F] font-semibold inter-font-family">
+            Choose EMI Tenure
+          </h3>
           <div className="text-base text-[#6F6F6F] inter-font-family">
-            <label className="font-semibold">
-              EMI Payment Date (1–28)
-            </label>
+            <label className="font-semibold">EMI Payment Date (1–28)</label>
             <input
               type="number"
               min={1}
@@ -414,10 +429,16 @@ export default function ConvertEmi() {
               min={3}
               max={maxMonths}
               value={customMonths}
-              onChange={(e) => setCustomMonths(e.target.value)}
-              className="border w-full p-1 rounded mb-2"
+              onChange={(e) => {
+                setCustomMonths(e.target.value);
+                setIsInvalidCustom(false); // remove red once typing
+              }}
+              className={`border w-full p-1 rounded mb-2 ${
+                isInvalidCustom ? "border-red-500" : "border-[#D9D9D9]"
+              }`}
               placeholder={`3 - ${maxMonths}`}
             />
+
             <button
               className="bg-blue-600 text-white w-full py-1 rounded"
               onClick={handleCustomSubmit}
