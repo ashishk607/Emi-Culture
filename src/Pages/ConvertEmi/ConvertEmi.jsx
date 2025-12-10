@@ -67,21 +67,37 @@ export default function ConvertEmi() {
     if (!travId) return;
 
     async function loadGuestData() {
-      setLoading(true);
+      try {
+        setLoading(true);
 
-      const res = await getGuestEmiDetails(travId);
+        const res = await getGuestEmiDetails(travId);
 
-      setGuest({
-        id: res.data.data.traV_ID,
-        name: res.data.data.name,
-        roomNumber: res.data.data.roomNo,
-        totalAmount: res.data.data.totalAmount,
-        paidAmount: res.data.data.paidAmount,
-        dueAmount: res.data.data.dueAmount,
-        paymentDue: res.data.data.dueDate,
-      });
+        const api = res.data;
 
-      setLoading(false);
+        if (!api?.data) {
+          setGuest(null);
+          setError(api.message || "Guest not found.");
+          return;
+        }
+        const g = api.data;
+        setGuest({
+          id: g.traV_ID,
+          name: g.name,
+          roomNumber: g.roomNo,
+          totalAmount: g.totalAmount,
+          paidAmount: g.paidAmount,
+          dueAmount: g.dueAmount,
+          paymentDue: g.dueDate,
+        });
+
+        setError(null);
+      } catch (error) {
+        console.error(error);
+        setError("Something went wrong!");
+        setGuest(null);
+      } finally {
+        setLoading(false);
+      }
     }
 
     loadGuestData();
@@ -188,7 +204,14 @@ export default function ConvertEmi() {
     );
   }
 
-  if (!guest) return null;
+  // 2. error OR no guest
+  if (error || !guest) {
+    return (
+      <div className="p-10 text-center text-red-600 text-lg font-semibold">
+        {error || "Guest not found"}
+      </div>
+    );
+  }
 
   if (maxMonths < 3) {
     return (
@@ -239,7 +262,6 @@ export default function ConvertEmi() {
       setSaving(false);
     }
   };
-
   return (
     <div className="flex w-full min-h-screen bg-white rounded-2xl p-4 gap-4">
       {/* LEFT SIDE */}
@@ -248,7 +270,7 @@ export default function ConvertEmi() {
         style={{ backgroundImage: `url(${familyImage})` }}
       >
         <div className="h-full w-auto m-2 rounded-2xl border border-gray-200 p-6">
-          <h2 className="text-3xl font-inter font-bold leading-snug">
+          <h2 className="text-3xl font-bold leading-snug inter-font-family">
             Simplify collections.{" "}
             <span className="text-[#0451BB]">Make time for better things.</span>
           </h2>
@@ -257,19 +279,16 @@ export default function ConvertEmi() {
 
       {/* RIGHT SIDE */}
       <div className="w-2/3 p-10 bg-white">
-        <h1 className="text-3xl font-bold">Convert Guest Payment to EMI</h1>
-        <p className="text-gray-600 mb-8 mt-2">
-          Help your guest pay in monthly installments.
-        </p>
+        <h1 className="text-3xl font-bold inter-font-family">Convert Guest Payment to EMI</h1>
+        <p className="text-gray-600 mb-8 mt-2 inter-font-family">Help your guest pay in easy monthly installments. While you sit back and relax.</p>
 
         <GuestInfoCard guest={guest} />
 
         {/* TENURE + PAYMENT DATE */}
-        <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold mb-4">Choose EMI Tenure</h3>
-
-          <div className="mb-6">
-            <label className="font-semibold text-gray-700">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-base text-[#6F6F6F] font-semibold inter-font-family">Choose EMI Tenure</h3>
+          <div className="text-base text-[#6F6F6F] inter-font-family">
+            <label className="font-semibold">
               EMI Payment Date (1–28)
             </label>
             <input
@@ -280,7 +299,7 @@ export default function ConvertEmi() {
               onChange={(e) =>
                 setPaymentDay(Math.max(1, Math.min(28, Number(e.target.value))))
               }
-              className="border ml-4 p-2 w-20 rounded"
+              className="border ml-2 p-1 w-20 rounded"
             />
           </div>
         </div>
@@ -303,7 +322,7 @@ export default function ConvertEmi() {
           ))}
 
           {/* CUSTOM EMI */}
-          <div className="border p-4 rounded-xl">
+          <div className="border border-[#D9D9D9] p-3 rounded-xl inter-font-family">
             <p className="font-semibold mb-2">Custom Months</p>
             <input
               type="number"
@@ -311,19 +330,18 @@ export default function ConvertEmi() {
               max={maxMonths}
               value={customMonths}
               onChange={(e) => setCustomMonths(e.target.value)}
-              className="border w-full p-2 rounded mb-2"
+              className="border w-full p-1 rounded mb-2"
               placeholder={`3 - ${maxMonths}`}
             />
-
             <button
-              className="bg-blue-600 text-white w-full py-2 rounded"
+              className="bg-blue-600 text-white w-full py-1 rounded"
               onClick={handleCustomSubmit}
             >
               Apply
             </button>
           </div>
         </div>
-        <div className="bg-blue-50 border border-blue-100 rounded-2xl px-6 py-6 shadow-sm">
+        <div className="bg-[#EFF6FF] border border-[#BEDBFF] rounded-2xl px-6 py-6 shadow-sm">
           {/* SUMMARY + SCHEDULE */}
           {selectedMonths && schedule.length > 0 && (
             <>
@@ -338,11 +356,11 @@ export default function ConvertEmi() {
                 <PaymentSchedule schedule={schedule} />
               </div>
 
-              <div className="mt-8 text-center">
+              <div className="mt-8 text-end inter-font-family">
                 <button
                   onClick={handleConfirmEmi}
                   disabled={saving || success}
-                  className={`bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition 
+                  className={`bg-blue-600 text-white px-6 py-3 rounded-xl text-base font-semibold transition 
                   ${
                     saving || success
                       ? "opacity-50 cursor-not-allowed"

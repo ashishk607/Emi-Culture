@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ViewEmi from "../../components/ViewEmi";
 import { useSearchParams } from "react-router-dom";
 import { getGuestEmiPlan } from "../../api/guestApi";
+import "./ViewEmi.css";
 
 export default function ViewEmiPage() {
   const [params] = useSearchParams();
@@ -73,14 +74,14 @@ export default function ViewEmiPage() {
   // -----------------------------
   if (error) {
     return (
-      <div className="p-10 text-center text-red-600 text-lg font-semibold">
+      <div className="p-10 text-center text-red-600 text-lg font-semibold inter-font-family">
         {error}
       </div>
     );
   }
 
   return (
-    <div className="p-2">
+    <div className="p-2 inter-font-family">
       <ViewEmi emi={emiData} />
     </div>
   );

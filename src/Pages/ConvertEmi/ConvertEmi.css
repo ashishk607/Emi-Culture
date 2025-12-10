@@ -22,4 +22,9 @@
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
-
+.inter-font-family{
+  font-family: 'Inter';
+}
+.poppins-font-family{
+  font-family: 'Poppins';
+}
