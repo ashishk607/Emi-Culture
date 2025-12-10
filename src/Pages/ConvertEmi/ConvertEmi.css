@@ -1,3 +1,85 @@
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Gray shimmer for regular text/elements */
+.shimmer-gray {
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 0%,
+    #f3f4f6 50%,
+    #e5e7eb 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* Light gray shimmer for subtle elements */
+.shimmer-light-gray {
+  background: linear-gradient(
+    90deg,
+    #f3f4f6 0%,
+    #f9fafb 50%,
+    #f3f4f6 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* Card shimmer with border */
+.shimmer-card {
+  background: linear-gradient(
+    90deg,
+    #f9fafb 0%,
+    #ffffff 50%,
+    #f9fafb 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* Blue light shimmer for EFF6FF background elements */
+.shimmer-blue-light {
+  background: linear-gradient(
+    90deg,
+    #dbeafe 0%,
+    #eff6ff 50%,
+    #dbeafe 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* Blue circle shimmer */
+.shimmer-blue-circle {
+  background: linear-gradient(
+    90deg,
+    #bfdbfe 0%,
+    #dbeafe 50%,
+    #bfdbfe 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* Blue button shimmer */
+.shimmer-blue-button {
+  background: linear-gradient(
+    90deg,
+    #2563eb 0%,
+    #3b82f6 50%,
+    #2563eb 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
   width: 0px;
   height: 0px;
@@ -10,17 +92,6 @@
 .hide-scrollbar {
   -ms-overflow-style: none;
   overflow-y: scroll;
-}
-.shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.2s infinite;
-  border-radius: 8px;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
 }
 .inter-font-family{
   font-family: 'Inter';

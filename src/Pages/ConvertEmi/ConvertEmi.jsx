@@ -196,10 +196,95 @@ export default function ConvertEmi() {
 
   if (loading) {
     return (
-      <div className="p-10">
-        <div className="shimmer h-6 w-1/3 mb-4"></div>
-        <div className="shimmer h-40 w-full mb-6"></div>
-        <div className="shimmer h-20 w-full"></div>
+      <div className="flex w-full min-h-screen bg-white rounded-2xl p-4 gap-4">
+        {/* LEFT SIDE - Image Shimmer */}
+        <div className="w-1/3 rounded-2xl overflow-hidden flex flex-col bg-gradient-to-br from-gray-200 to-gray-300">
+          <div className="h-full w-auto m-2 rounded-2xl border border-gray-200 p-6">
+            <div className="shimmer-gray h-8 w-3/4 mb-3 rounded-lg" />
+            <div className="shimmer-gray h-6 w-full rounded-lg" />
+          </div>
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div className="w-2/3 p-10 bg-white">
+          {/* Header Shimmer */}
+          <div className="shimmer-gray h-9 w-80 mb-2 rounded-lg" />
+          <div className="shimmer-gray h-5 w-96 mb-8 rounded-lg" />
+
+          {/* Guest Info Card Shimmer */}
+          <div className="bg-[#F9FAFB] p-6 border border-gray-200 rounded-xl mb-4">
+            <div className="shimmer-light-gray h-4 w-24 mb-2 rounded" />
+            <div className="shimmer-gray h-6 w-48 mb-3 rounded" />
+            <hr className="my-2 text-[#9C9C9C]" />
+            
+            <div className="flex items-center gap-6 mb-3">
+              <div className="shimmer-gray h-5 w-24 rounded" />
+              <div className="w-px h-10 bg-gray-300" />
+              <div className="shimmer-gray h-5 w-28 rounded" />
+              <div className="w-px h-10 bg-gray-300" />
+              <div className="shimmer-gray h-5 w-24 rounded" />
+            </div>
+            
+            <div className="shimmer-gray h-5 w-52 rounded" />
+          </div>
+
+          {/* Tenure Selection Header */}
+          <div className="flex justify-between items-center mb-4">
+            <div className="shimmer-gray h-5 w-40 rounded" />
+            <div className="shimmer-gray h-9 w-56 rounded" />
+          </div>
+
+          {/* Tenure Cards Grid Shimmer */}
+          <div className="grid grid-cols-4 gap-4 mb-8">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="shimmer-card border border-[#D9D9D9] rounded-xl p-4 h-28" />
+            ))}
+          </div>
+
+          {/* EMI Summary Section Shimmer */}
+          <div className="bg-[#EFF6FF] border border-[#BEDBFF] rounded-2xl px-6 py-6 shadow-sm">
+            {/* Summary Top */}
+            <div className="flex justify-between mb-6">
+              <div>
+                <div className="shimmer-blue-light h-4 w-24 mb-2 rounded" />
+                <div className="shimmer-blue-light h-5 w-32 rounded" />
+              </div>
+              <div>
+                <div className="shimmer-blue-light h-4 w-28 mb-2 rounded" />
+                <div className="shimmer-blue-light h-5 w-20 rounded" />
+              </div>
+            </div>
+
+            {/* Date Range */}
+            <div className="flex justify-between text-sm border-[#BEDBFF] border-t pt-4 mb-6">
+              <div className="shimmer-blue-light h-5 w-40 rounded" />
+              <div className="shimmer-blue-light h-5 w-36 rounded" />
+            </div>
+
+            {/* Payment Schedule */}
+            <div className="bg-white rounded-xl border border-[#BEDBFF] p-6">
+              <div className="shimmer-gray h-6 w-44 mb-4 rounded" />
+              
+              <ul className="space-y-3">
+                {[1, 2, 3].map((i) => (
+                  <li key={i} className="flex items-center justify-between py-3 border-[#E1DFDF] border-b last:border-none">
+                    <div className="flex items-center gap-4">
+                      <div className="shimmer-blue-circle w-8 h-8 rounded-full" />
+                      <div className="shimmer-gray h-5 w-28 rounded" />
+                    </div>
+                    <div className="shimmer-gray h-5 w-12 rounded" />
+                    <div className="shimmer-light-gray h-4 w-20 rounded" />
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Confirm Button */}
+            <div className="mt-8 text-end">
+              <div className="shimmer-blue-button h-12 w-36 rounded-xl ml-auto" />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
