@@ -1,7 +1,7 @@
 export default function ViewEmiSchedule({ schedule }) {
   return (
     <div className="bg-[#BEDBFF] rounded-2xl p-6 shadow-md">
-      <div className="bg-white rounded-2xl p-6 shadow-md h-70 overflow-y-auto hide-scrollbar">
+      <div className="bg-white rounded-2xl p-6 shadow-md max-h-80 overflow-y-auto hide-scrollbar">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">
           Payment Schedule
         </h3>

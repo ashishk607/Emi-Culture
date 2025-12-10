@@ -37,6 +37,8 @@ export default function ViewEmiPage() {
         // Map API → Component format
         setEmiData({
           tenure: d.tenure,
+          guestName: d.guestName,
+          roomNo: d.roomNo,
           monthly: d.monthly,
           totalPayable: d.totalPayable,
           start: d.start,
@@ -72,7 +74,18 @@ export default function ViewEmiPage() {
                 <div className="shimmer-light h-9 w-3/4 mb-2 rounded-lg" />
                 <div className="shimmer-light h-5 w-full rounded-lg" />
               </div>
+              <div className="flex items-center gap-5 mb-6">
+                {/* Avatar shimmer */}
+                <div className="shimmer-light w-10 h-10 rounded-full bg-white/20" />
 
+                {/* Text shimmer */}
+                <div className="flex flex-col gap-1">
+                  <div className="shimmer-light h-4 w-32 rounded" />{" "}
+                  {/* Guest label */}
+                  <div className="shimmer-light h-5 w-44 rounded" />{" "}
+                  {/* Name + room */}
+                </div>
+              </div>
               {/* Cards Shimmer */}
               <div className="flex justify-between mb-6">
                 <div className="shimmer-white border border-[#D9D9D9] rounded-2xl p-6 w-[30%]">
@@ -103,14 +116,17 @@ export default function ViewEmiPage() {
           {/* Right Section - Payment Schedule */}
           <div className="w-1/2 p-8">
             <div className="bg-[#BEDBFF] rounded-2xl p-6 shadow-md">
-              <div className="bg-white rounded-2xl p-6 shadow-md h-70">
+              <div className="bg-white rounded-2xl p-6 shadow-md max-h-80">
                 {/* Title Shimmer */}
                 <div className="shimmer-gray h-6 w-48 mb-4 rounded" />
 
                 {/* Schedule Items Shimmer */}
                 <ul className="space-y-4 pr-2">
                   {[1, 2, 3].map((i) => (
-                    <li key={i} className="flex items-center justify-between py-3 border-[#E1DFDF] border-b last:border-none">
+                    <li
+                      key={i}
+                      className="flex items-center justify-between py-3 border-[#E1DFDF] border-b last:border-none"
+                    >
                       <div className="flex items-center gap-3">
                         <div className="shimmer-blue-circle w-8 h-8 rounded-full" />
                         <div className="shimmer-gray h-5 w-20 rounded" />
@@ -240,4 +256,3 @@ export default function ViewEmiPage() {
 //     </div>
 //   );
 // }
-

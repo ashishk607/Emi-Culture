@@ -1,7 +1,6 @@
 export default function ViewEmiSummary({ tenure, installment, totalPayable, start, end }) {
   return (
-    <div className="">
-      
+    <div className="">      
       <div className="flex justify-between mb-6">
         <div className="bg-white border border-[#D9D9D9] rounded-2xl p-6 text-black">
           <p className="text-sm opacity-80">EMI Tenure</p>
